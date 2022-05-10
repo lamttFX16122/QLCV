@@ -1,0 +1,23 @@
+.row {
+    margin: 0;
+}
+
+.btn-close-form {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 3s ease-in-out;
+}
+
+.btn-close-form :hover {
+    opacity: 1;
+    color: brown;
+}
+
+.sort_selected:not(span)::after {
+    content: "\f00c";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0 0 0 20px;
+    display: inline-block;
+}
