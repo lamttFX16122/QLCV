@@ -8,11 +8,11 @@ class Control extends Component {
       <React.Fragment>
         {/* <!-- Search --> */}
         <div className="col-6">
-          <Search onSearch={this.props.onSearch}></Search>
+          <Search></Search>
         </div>
         {/* <!-- Sort --> */}
         <div className="col-6">
-          <Sort onSort={this.props.onSort}></Sort>
+          <Sort></Sort>
         </div>
       </React.Fragment>
     );

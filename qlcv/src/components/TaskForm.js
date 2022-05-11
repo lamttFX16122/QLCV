@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import {connect} from "react-redux";
+import * as action from "./../actions/index"
 class TaskForm extends Component {
     constructor(props)
     {
@@ -12,25 +13,25 @@ class TaskForm extends Component {
     }
     // componentDidMount
     componentDidMount(){ 
-        const {updating}=this.props;
-      if(updating)
+        const {itemediting}=this.props;
+      if(itemediting)
       {
         this.setState({
-            id:updating.id,
-            name:updating.name,
-            status:updating.status
+            id:itemediting.id,
+            name:itemediting.name,
+            status:itemediting.status
         })
       }
     }
     componentWillReceiveProps (nextProps){
-        if(nextProps && nextProps.updating)
+        if(nextProps && nextProps.itemediting)
         {
             this.setState({
-                id:nextProps.updating.id,
-                name: nextProps.updating.name,
-                status: nextProps.updating.status
+                id:nextProps.itemediting.id,
+                name: nextProps.itemediting.name,
+                status: nextProps.itemediting.status
             })
-        }else if(nextProps && nextProps.updating===null)
+        }else if(nextProps && nextProps.itemediting===null)
         {
             this.setState({
                 id:'',
@@ -57,12 +58,11 @@ class TaskForm extends Component {
   }
   onSubmitForm=(e)=>{
     e.preventDefault();
-    this.props.onSubmitForm(this.state);
+    this.props.onSaveTask(this.state);
     this.onClear();
     this.closeForm();
   }
   onClear=()=>{
-    
       this.setState({
           name:"",
           status:false  
@@ -125,4 +125,22 @@ class TaskForm extends Component {
     );
   }
 }
-export default TaskForm;
+// Chuyen state tren store thanh prop 
+const mapStateToProps=(state)=>{
+  return{
+    itemediting: state.itemediting
+  }
+}
+const mapDispatchToProp=(dispatch, props)=>{
+  return {
+    //props func giong truyen nguoc lai parent
+    onSaveTask:(task)=>{
+      dispatch(action.saveTask(task))
+    },
+    onCloseForm: ()=> {
+      dispatch(action.closeForm())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp) (TaskForm);
